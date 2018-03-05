@@ -1,0 +1,114 @@
+<!doctype html>
+
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+
+  <title>Random Quote Machine</title>
+  <meta name="description" content="The HTML5 Herald">
+  <meta name="author" content="SitePoint">
+  <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+
+  <!--[if lt IE 9]>    <script src="https://cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv.js"></script>
+  <![endif]-->
+  <style>
+  body{
+    width: 100%;
+    background-color: #d0c6e496;
+  }
+    #outerBox{
+      /* box-shadow:*/
+
+      border-radius: 2px;
+      border: 2px solid black;
+      background-color: green;
+      display:table;
+      width:600px;
+      height:400px;
+      margin: 40px auto;
+      color: #8bd68bd1;
+      border-color: #efc1c1;
+      -webkit-box-shadow: 0px 2px 11px 0px rgba(0,0,0,0.75);
+      -moz-box-shadow: 0px 2px 11px 0px rgba(0,0,0,0.75);
+      box-shadow: 0px 2px 11px 0px rgba(0,0,0,0.75);
+    }
+    #quoteButton{
+      display: table;
+      margin: 80px auto;
+      margin-bottom:0;
+      width: 300px;
+      height: 50px;
+      border: 2px solid #0000004a;
+      border-radius: 5px;
+      background-color: #417fb1;
+    }
+    #quoteButton:active{
+      -webkit-box-shadow: 2px -2px 40px 0px rgba(0,0,0,0.75);
+      -moz-box-shadow: 2px -2px 40px 0px rgba(0,0,0,0.75);
+      box-shadow: 2px -2px 40px 0px rgba(0,0,0,0.75);
+      background-color: #5896c7f7
+    }
+    input{
+      font-style:italic;
+      font-family: monospace;
+      color: yellow;
+      font-size:150px;
+      font: 1em/1.25em Arial, Helvetica, sans-serif;
+}
+
+
+
+    #textArea{
+      background-color:#ffffffdb;
+      display:table;
+      height:200px;
+      width:450px;
+      margin: 10px auto;
+      border-radius: 10px;
+
+    }
+  </style>
+</head>
+
+<body class="container-fluid">
+  <header style="text-align:center; color: #001dff;"><h1>Random Quote Machine<h1></header>
+  <div id="box-container">
+    <div id="outerBox">
+      <div id="textArea">
+
+      </div>
+      <input id = "quoteButton"type="button" value="New Quote" style="cursor: pointer"></input>
+    </div>
+  </div>
+
+  <script type="text/javascript">
+  $( document ).ready(function() {
+
+    var putQuote = function(){
+
+      $.getJSON("https://random-quote-generator.herokuapp.com/api/quotes/random", function(json){
+        var QuoteObject = {};
+        QuoteObject.quote = json.quote;
+
+        QuoteObject.author = json.author;
+
+        document.getElementById("textArea").innerHTML = "<h4 style='text-align: center; color: red; padding-right: 2px'>\"" + QuoteObject.quote +"\" </h4> " +
+        "<h5 style='float: right; padding-right: 2px'>- " + QuoteObject.author + "</h5>";
+      })
+
+
+
+
+    }
+  putQuote();
+
+    $("#quoteButton").click(function(){
+      putQuote();
+    })
+});
+
+
+  </script>
+</body>
+</html>
